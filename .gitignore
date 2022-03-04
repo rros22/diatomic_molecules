@@ -1,2 +1,3 @@
-**/results
+results/*.pdb
+results/*.csv
 run.sh

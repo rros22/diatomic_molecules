@@ -176,16 +176,16 @@ void wall_force(Sphere *atom, bool n, double d){
     double f_z = 0;
 
     //left/right wall
-    f_x += 48*epsilon*pow(sigma, 12)/pow(abs(x - x_min) , 13);
-    f_x -= 48*epsilon*pow(sigma, 12)/pow(abs(x_max - x), 13);
+    f_x += 48*epsilon*pow(sigma, 12)/pow(std::abs(x - x_min) , 13);
+    f_x -= 48*epsilon*pow(sigma, 12)/pow(std::abs(x_max - x), 13);
 
     //top/bottom wall
-    f_y -= 48*epsilon*pow(sigma, 12)/pow(abs(y_max - y), 13);
-    f_y += 48*epsilon*pow(sigma, 12)/pow(abs(y - y_min), 13);
+    f_y -= 48*epsilon*pow(sigma, 12)/pow(std::abs(y_max - y), 13);
+    f_y += 48*epsilon*pow(sigma, 12)/pow(std::abs(y - y_min), 13);
 
     //front/back wall;
-    f_z -= 48*epsilon*pow(sigma, 12)/pow(abs(z_max - z), 13);
-    f_z += 48*epsilon*pow(sigma, 12)/pow(abs(z - z_min), 13);
+    f_z -= 48*epsilon*pow(sigma, 12)/pow(std::abs(z_max - z), 13);
+    f_z += 48*epsilon*pow(sigma, 12)/pow(std::abs(z - z_min), 13);
 
     if (!n){
 
