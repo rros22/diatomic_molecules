@@ -6,7 +6,8 @@
 #include "../velocity_verlet/velocity_verlet.hpp"
 
 
-int main(){
+
+int main(int argc, char *argv[]){
 
     std::string path = "results/frame_0.csv";
     std::string path_2 = "results/frame_0.pdb";
@@ -17,7 +18,7 @@ int main(){
 
     double dt = 1E-15;
     double t = 0;
-    double t_end = 10E-12;
+    double t_end = 1E-9;
 
     int it = 1;
 
@@ -25,7 +26,7 @@ int main(){
 
     d = 2*7*4.32E-10;
 
-    Box* domain = create_box(d/2, d, d, d, 7*7*7);
+    Box* domain = create_box(d/2, d, d, d, 5*5*5);
 
 
 
@@ -40,7 +41,7 @@ int main(){
 
     box_csv(domain, path);
     box_pdb(domain, path_2);
-
+    
 
 
     while (t < t_end){
@@ -49,13 +50,13 @@ int main(){
 
         verlet_integrate(domain, dt, t);
 
-        //if (!(it % 40)){
+        if (!(it % 40)){
 
-            box_pdb(domain, path_2);
+            //box_pdb(domain, path_2);
             box_csv(domain, path);
             std::cout << "Frame: " << it << std::endl;
 
-        //}
+        }
 
 
         t += dt;

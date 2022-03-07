@@ -31,6 +31,15 @@ typedef struct Mol_2{
     //bond length
     double l;
 
+    //energies
+    double ke_trans;
+    double ke_rot;
+    double ke_vibr;
+
+    double pe;
+
+    double e_total;
+
 
 
 } Mol_2;

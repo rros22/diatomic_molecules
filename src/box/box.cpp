@@ -2,6 +2,7 @@
 #include "../rand/rand.hpp"
 #include <iostream>
 #include <cmath>
+#include "../energy/energy.hpp"
 
 #define PI 3.1415926535
 
@@ -136,6 +137,14 @@ Box* create_box(double o, double x, double y, double z, int molecule_no){
         (box->molecules)[i].atom_2.f_x_n = 0;
         (box->molecules)[i].atom_2.f_y_n = 0;
         (box->molecules)[i].atom_2.f_z_n = 0;
+
+    }
+
+    //initialise energies
+
+    for (int i = 0; i < molecule_no; i++){
+
+      calculate_energies(box->molecules, i);
 
     }
 

@@ -98,7 +98,9 @@ void labels_mol(std::string path){
 
     file << "m_1" << "," << "m_2" << ",";
 
-    file << "k" << "," << "l_0";
+    file << "k" << "," << "l_0" << ",";
+
+    file << "ke_t" << "," << "ke_r" << "," << "ke_v" << "," << "pe" << "," << "e_t";
 
     file << std::endl;
 
@@ -159,6 +161,23 @@ void append_molecule_csv(Mol_2 *molecule, std::string path){
     file << ",";
 
     file << molecule->l_0;
+    file << ",";
+
+    //energies
+    file << molecule->ke_trans;
+    file << ",";
+
+    file << molecule->ke_rot;
+    file << ",";
+
+    file << molecule->ke_vibr;
+    file << ",";
+
+    file << molecule->pe;
+    file << ",";
+
+    file << molecule->e_total;
+
 
     file << std::endl;
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "../energy/energy.hpp"
+
 #define k_e 8.988E9
 
 void compute_forces(Box *domain, bool n){
@@ -110,5 +112,11 @@ void verlet_integrate(Box *domain, double dt, double t){
     compute_forces(domain, 1);
     next_velocity(domain, dt);
 
+    //calculate energy
+    for (int i = 0; i < domain->molecule_no; i++){
+
+      calculate_energies(domain->molecules, i);
+
+    }
 
 }
