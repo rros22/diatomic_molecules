@@ -16,9 +16,9 @@ int main(int argc, char *argv[]){
 
     delete_frame(path);
 
-    double dt = 1E-15;
+    double dt = 1E-14;
     double t = 0;
-    double t_end = 1E-9;
+    double t_end = 1E-8;
 
     int it = 1;
 
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 
     d = 2*7*4.32E-10;
 
-    Box* domain = create_box(d/2, d, d, d, 5*5*5);
+    Box* domain = create_box(d/2, d, d, d, 3*3*3);
 
 
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
 
     box_csv(domain, path);
     box_pdb(domain, path_2);
-    
+
 
 
     while (t < t_end){

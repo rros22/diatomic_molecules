@@ -239,6 +239,52 @@ def test_mol(frame, i):
 
     print("Atomic KE of        " + str(i) + " = " + str(k_atom))
 
+def average_energies_c(frame):
+
+    path = 'results/frame_' + str(frame) + '.csv'
+
+    data = pd.read_csv(path, sep=',',header=None, skiprows=1)
+
+    rows = len(data)
+
+    #define variables
+    k_trans = 0
+    k_rot = 0
+    k_vibr = 0
+
+    p = 0
+
+    e_total = 0
+
+    k_atom = 0
+
+    #traverse list of molecules and add contribution
+    for i in range(0, rows):
+
+        k_trans += data.loc[i, 16]
+        k_rot += data.loc[i, 17]
+        k_vibr += data.loc[i, 18]
+
+        p += data.loc[i, 19]
+
+        e_total += data.loc[i, 20]
+
+        #k_atom += kinetic_atom(path, i)
+
+    #normalise by number of molecules
+    k_trans = k_trans/rows
+    k_rot = k_rot/rows
+    k_vibr = k_vibr/rows
+
+    p = p/rows
+
+    e_total = e_total/rows
+
+    #k_atom  = k_atom/rows
+
+    return [k_trans, k_rot, k_vibr, p, e_total]
+
+
 def average_energies(frame):
 
     path = 'results/frame_' + str(frame) + '.csv'
@@ -300,6 +346,8 @@ def average_energies(frame):
     return [k_trans, k_rot, k_vibr, p, e_total]
 
 #test_mol(14800, 34)
+def average(lst):
+    return sum(lst) / len(lst)
 
 def plot_energies(start, end, step):
 
@@ -335,7 +383,7 @@ def plot_energies(start, end, step):
 
         print("Time step = " + str(frame*1E-15))
 
-        energies_step = average_energies(frame)
+        energies_step = average_energies_c(frame)
 
         k_trans.append(energies_step[0])
         k_rot.append(energies_step[1])
@@ -343,16 +391,38 @@ def plot_energies(start, end, step):
         p.append(energies_step[3])
         e_total.append(energies_step[4])
 
+    #best fit lines
+    #m_t, b_t = np.polyfit(time[11000:], k_trans[11000:], 1)
+    #m_r, b_r = np.polyfit(time[11000:], k_rot[11000:], 1)
+    #m_v, b_v = np.polyfit(time[11000:], k_vibr[11000:], 1)
+    #m_p, b_p = np.polyfit(time[11000:], p[11000:], 1)
+    #m_et, b_et = np.polyfit(time[11000:], e_total[11000:], 1)
 
 
     ax1.plot(time, k_trans)
+    #ax1.plot(time, k_rot, 'o')
+    ax2.plot(time, [sum(x) for x in zip(k_rot, k_trans)], 'k')
+    #ax1.plot(m_t, b_t, 'o')
+
     ax2.plot(time, k_rot)
+    #ax2.plot(m_r, b_r, 'o')
+
     ax3.plot(time, k_vibr)
+    #ax3.plot(m_v, b_v, 'o')
+
     ax4.plot(time, p)
+    #ax4.plot(m_p, b_p, 'o')
 
     ax.plot(time, e_total)
+    #ax.plot(m_et, b_et, 'o')
+
+    #print across frame averages
+    print("Translational Kinetic Energy: " + str(average(k_trans[5000:])))
+    print("Rotational Kinetic Energy   : " + str(average(k_rot[5000:])))
+    print("Vibrational Kinetic Energy  : " + str(average(k_vibr[5000:])))
+    print("Potential Energy            : " + str(average(p[5000:])))
 
 #average_energies(34640)
 
-plot_energies(0, 6000, 100)
+plot_energies(0, 1000000, 40)
 plt.show()

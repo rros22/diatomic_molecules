@@ -56,15 +56,15 @@ Box* create_box(double o, double x, double y, double z, int molecule_no){
         (box->molecules)[i].v = rand_range(-1000, 1000);
         (box->molecules)[i].w = rand_range(-1000, 1000);
 
-        (box->molecules)[i].yy_rot = rand_range(-6E12, 6E12);
-        (box->molecules)[i].zz_rot = rand_range(-6E12, 6E12);
+        (box->molecules)[i].yy_rot = 0;
+        (box->molecules)[i].zz_rot = 0;
     }
 
     //initialise bond lengths randomly
     for (int i = 0; i < molecule_no; i++){
 
         (box->molecules)[i].l_0 = 1.09E-10;
-        (box->molecules)[i].l = 1.15E-10;
+        (box->molecules)[i].l = 1.09E-10;
     }
 
     //initialise stiffness
